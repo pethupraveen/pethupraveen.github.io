@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive sample e-commerce marketplace sales dashboard.">
+  <title>Marketplace Sales Dashboard | Praveen Kumar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="dashboard-page">
+  <header class="dashboard-header"><div class="container dashboard-head-inner">
+    <div class="breadcrumb"><a href="../">Portfolio</a> / Projects / Sales Dashboard</div>
+    <div class="dashboard-title-row"><div><p class="eyebrow">INTERACTIVE PROJECT / 01</p><h1>Marketplace Sales Dashboard</h1><p>Explore sales, order volume, channel mix and product performance using illustrative sample data.</p></div><span class="demo-badge">DEMO DATA · NOT REAL SALES</span></div>
+  </div></header>
+  <main class="container dashboard-main">
+    <div class="error-note" id="load-error">Charts could not load. Check your internet connection; the dashboard uses Chart.js from a CDN.</div>
+    <section class="filters-panel" aria-label="Dashboard filters">
+      <div class="filter-field"><label for="channelFilter">MARKETPLACE</label><select id="channelFilter"><option value="All">All marketplaces</option><option>Amazon</option><option>Flipkart</option><option>Myntra</option><option>Meesho</option></select></div>
+      <div class="filter-field"><label for="categoryFilter">CATEGORY</label><select id="categoryFilter"><option value="All">All categories</option><option>Back Covers</option><option>Tempered Glass</option><option>Accessories</option></select></div>
+      <div class="filter-field"><label for="periodFilter">PERIOD</label><select id="periodFilter"><option value="30">Last 30 days</option><option value="60">Last 60 days</option><option value="90" selected>Last 90 days</option></select></div>
+      <div class="filter-actions"><button class="small-button" id="resetFilters" type="button">Reset</button><button class="small-button primary" id="downloadCsv" type="button">Export CSV ↓</button></div>
+    </section>
+    <section class="dashboard-kpis" aria-label="Key performance indicators">
+      <article class="dashboard-kpi"><span class="label">NET SALES</span><strong id="kpiSales">—</strong><small>After sample discounts & returns</small></article>
+      <article class="dashboard-kpi"><span class="label">ORDERS</span><strong id="kpiOrders">—</strong><small>Distinct sample orders</small></article>
+      <article class="dashboard-kpi"><span class="label">AVERAGE ORDER VALUE</span><strong id="kpiAov">—</strong><small>Net sales ÷ orders</small></article>
+      <article class="dashboard-kpi"><span class="label">UNITS SOLD</span><strong id="kpiUnits">—</strong><small>Net units in sample data</small></article>
+    </section>
+    <section class="dashboard-grid">
+      <article class="chart-card"><h2>Sales trend</h2><p class="card-subtitle">Daily net sales across the selected filters</p><div class="chart-wrap"><canvas id="salesTrend" aria-label="Daily sales trend chart"></canvas></div></article>
+      <article class="chart-card"><h2>Sales by marketplace</h2><p class="card-subtitle">Share of net sales by channel</p><div class="chart-wrap donut"><canvas id="channelMix" aria-label="Sales by marketplace doughnut chart"></canvas></div></article>
+      <article class="chart-card"><h2>Category performance</h2><p class="card-subtitle">Net sales by product category</p><div class="chart-wrap"><canvas id="categoryChart" aria-label="Category sales bar chart"></canvas></div></article>
+      <article class="chart-card"><h2>Quick read</h2><p class="card-subtitle">Automatically calculated from the current filters</p><div id="insights" class="insights-list"><p>Loading insights…</p></div></article>
+    </section>
+    <section class="table-card" style="margin-top:15px"><h2>SKU performance</h2><p class="card-subtitle">Top SKUs ranked by net sales in the filtered period</p><div class="dashboard-table-wrap"><table><thead><tr><th>SKU</th><th>PRODUCT</th><th>CATEGORY</th><th>UNITS</th><th>ORDERS</th><th>NET SALES</th></tr></thead><tbody id="skuTable"><tr><td colspan="6">Loading…</td></tr></tbody></table></div><div class="table-foot"><span id="tableCount">—</span><span>Figures are illustrative and do not represent real marketplace results.</span></div></section>
+  </main>
+  <footer class="dashboard-footer"><div class="container"><span>© <span id="year"></span> Praveen Kumar · E-Commerce & MIS Portfolio</span><a href="../">← Back to portfolio</a></div></footer>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body></html>
