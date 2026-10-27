@@ -1,29 +1,40 @@
-# E-Commerce & MIS Portfolio — Praveen Kumar
+﻿# Praveen Kumar — E-commerce & Analytics Portfolio
 
-A clean, responsive static portfolio and interactive marketplace sales dashboard for GitHub Pages.
+A responsive static portfolio for GitHub Pages, showcasing six projects in marketplace automation, inventory analytics, and data collection.
 
-## What's included
-- `index.html` — portfolio homepage
-- `projects/sales-dashboard.html` — interactive sales dashboard
-- `css/style.css` — responsive styling
-- `js/main.js` — navigation and footer year
-- `js/dashboard.js` — filters, KPIs, charts, insights, and CSV export
+## Features
+
+- Project previews with Automation, Analytics, and Data collection filters
+- Expandable workflow details for each project
+- Links to public repositories and the interactive sales dashboard
+- About, expertise, and GitHub contact sections
+- Mobile navigation, keyboard support, and reduced-motion preferences
+
+## Files
+
+- `index.html` — portfolio homepage and project content
+- `css/portfolio.css` — portfolio design and responsive layout
+- `js/main.js` — project filters, navigation, and footer year
+- `favicon.svg` — portfolio icon
+- `projects/sales-dashboard.html` — interactive sample sales dashboard
+- `css/style.css` — dashboard styling
+- `js/dashboard.js` — dashboard filters, charts, and CSV export
 - `data/sample-sales.json` — fictional sample marketplace records
 
-## Important data note
-All sales data is synthetic and illustrative. Do not present it as actual company performance. Replace it only with data you are authorized to share, and anonymize sensitive business details.
+## Preview
+
+Open `index.html` in a browser to view the portfolio. To use the sales dashboard, serve this folder over HTTP, for example with `npx --yes serve .`, then open the printed local URL. The dashboard fetches JSON and cannot load it through `file://`.
+
+Google Fonts and the dashboard's Chart.js library use CDNs. The portfolio layout includes system font fallbacks.
+
+## Customize
+
+Edit project text, repository links, and biography in `index.html`. Contact links currently point to the existing GitHub profile. Add an email, personal LinkedIn profile, or resume when available.
+
+All dashboard figures and project visual previews are illustrative. They do not represent actual company results. Private tools are described as portfolio projects and are not hosted by this website.
 
 ## Publish to GitHub Pages
-1. Download and unzip this project.
-2. Back up your existing repository or create a new Git branch before replacing files.
-3. Copy the contents of this folder into the root of `pethupraveen.github.io`.
-4. Commit and push the files to the repository's publishing branch (commonly `main`).
-5. In GitHub, open **Settings → Pages** and confirm the correct branch and `/ (root)` folder are selected.
-6. Wait for deployment, then open `https://pethupraveen.github.io/`.
-7. Test the dashboard at `https://pethupraveen.github.io/projects/sales-dashboard.html`.
 
-## Notes
-- The dashboard fetches its JSON data using `fetch()`, so test it through GitHub Pages or a local web server, not by opening the HTML file directly with `file://`.
-- Chart.js and Google Fonts are loaded from CDNs and therefore require an internet connection.
-- Update the LinkedIn link in `index.html` to your real profile. Add your resume only when the PDF is ready.
-- This package does not modify your live GitHub repository. You must upload/commit the files yourself unless you connect a GitHub integration that supports repository edits.
+Commit and push the files to the repository's publishing branch. In GitHub Settings → Pages, select the publishing branch and root folder. This site uses relative asset paths and needs no build step.
+
+The expected public URL is https://pethupraveen.github.io/ after GitHub Pages deploys the repository. Local edits do not update the published site until pushed and deployed.
