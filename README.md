@@ -49,9 +49,17 @@ npm run dev          # http://localhost:5173
 Other scripts:
 
 ```bash
-npm run build        # production build into dist/, then writes dist/404.html
+npm run build        # production build into dist/, then pre-renders every route
 npm run preview      # serve the production build locally
 npm run check        # server-renders every page and dashboard to catch runtime errors
+```
+
+Note: `npm run preview` falls back to `index.html` for extensionless paths, so
+it does not reflect how pre-rendered routes are served in production. To check
+those the way GitHub Pages serves them, use a plain static server:
+
+```bash
+npx serve dist
 ```
 
 ## Publish to GitHub Pages
@@ -75,12 +83,26 @@ This is a GitHub Pages **user site**, served from the domain root, so
 `vite.config.js` sets `base: '/'`. If the site ever moves to a project
 repository, change it to `base: '/<repo-name>/'`.
 
-### Deep links
+### Deep links and pre-rendering
 
-GitHub Pages has no SPA rewrite rule, so `scripts/spa-fallback.mjs` copies
-`dist/index.html` to `dist/404.html` after every build. That is what lets
-`/projects` and `/reporting#sku` resolve when opened directly or refreshed.
+GitHub Pages has no SPA rewrite rule, so every route is pre-rendered to a real
+HTML file. After `vite build`, `scripts/prerender.mjs` renders each route with
+React's static `prerenderToNodeStream` and writes `dist/about/index.html`,
+`dist/projects/index.html` and so on, each with its own `<title>`, meta
+description, Open Graph tags and canonical URL. Deep links therefore return a
+genuine 200 with indexable content rather than a 404 fallback, and the client
+hydrates that markup instead of re-rendering over it.
+
+`dist/404.html` remains as the fallback for paths that have no file. It is
+written from the empty template, so unknown paths render fresh on the client
+rather than hydrating the wrong route.
+
 `public/.nojekyll` stops GitHub from running Jekyll over the build output.
+
+Routes are declared once in `src/data/seo.js` — adding a page means adding a
+route there, a `<Route>` in `src/App.jsx` and a `<loc>` in `public/sitemap.xml`.
+GitHub Pages redirects `/about` to `/about/`, so canonical URLs and the sitemap
+use the trailing-slash form.
 
 ## Resume
 
@@ -94,7 +116,7 @@ and `resumeFileName` in `src/data/profile.js`.
 index.html                     entry document with SEO and JSON-LD metadata
 public/                        resume PDF, favicon, robots.txt, sitemap.xml, .nojekyll
 src/
-  App.jsx                      routes, lazy page loading, titles, scroll handling
+  App.jsx                      routes, document titles, scroll handling
   index.css                    Tailwind v4 theme tokens, base styles, animations
   components/
     Navbar.jsx  Footer.jsx     site chrome
@@ -106,8 +128,9 @@ src/
     profile.js                 resume content
     projects.js                case studies
     sampleData.js              demonstration datasets
+    seo.js                     per-route titles, descriptions and file paths
 scripts/
-  spa-fallback.mjs             writes dist/404.html after a build
+  prerender.mjs                pre-renders every route to HTML after a build
   render-check.mjs             server-render smoke test
 legacy/                        the previous hand-written static site, kept for reference
 ```

@@ -1,13 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import SalesDashboard from "../components/dashboards/SalesDashboard.jsx";
-import InventoryDashboard from "../components/dashboards/InventoryDashboard.jsx";
-import SkuDashboard from "../components/dashboards/SkuDashboard.jsx";
-import PricingDashboard from "../components/dashboards/PricingDashboard.jsx";
-import LaunchDashboard from "../components/dashboards/LaunchDashboard.jsx";
-import CompatibilityChecker from "../components/dashboards/CompatibilityChecker.jsx";
 import { PageHeader, Section, SampleDataNotice } from "../components/ui.jsx";
 import { SAMPLE_NOTICE } from "../data/sampleData.js";
+
+// The dashboards carry the chart library, so they load on demand rather than
+// in the entry bundle. The page itself pre-renders with its headings intact.
+const SalesDashboard = lazy(() => import("../components/dashboards/SalesDashboard.jsx"));
+const InventoryDashboard = lazy(() => import("../components/dashboards/InventoryDashboard.jsx"));
+const SkuDashboard = lazy(() => import("../components/dashboards/SkuDashboard.jsx"));
+const PricingDashboard = lazy(() => import("../components/dashboards/PricingDashboard.jsx"));
+const LaunchDashboard = lazy(() => import("../components/dashboards/LaunchDashboard.jsx"));
+const CompatibilityChecker = lazy(() => import("../components/dashboards/CompatibilityChecker.jsx"));
+
+function DashboardFallback() {
+  return (
+    <div className="space-y-6" aria-busy="true">
+      <div className="h-20 animate-pulse rounded-2xl bg-ink-50" />
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {[0, 1, 2, 3].map((i) => (
+          <div key={i} className="h-24 animate-pulse rounded-2xl bg-ink-50" />
+        ))}
+      </div>
+      <div className="h-80 animate-pulse rounded-2xl bg-ink-50" />
+      <span className="sr-only">Loading dashboard</span>
+    </div>
+  );
+}
 
 const TABS = [
   {
@@ -63,10 +81,9 @@ const TABS = [
 export default function Reporting() {
   const { hash } = useLocation();
   const navigate = useNavigate();
-  const [active, setActive] = useState(() => {
-    const id = hash.replace("#", "");
-    return TABS.some((t) => t.id === id) ? id : "sales";
-  });
+  // Starts on the first tab so the pre-rendered markup and the first client
+  // render agree; the effect below switches to the hash target immediately.
+  const [active, setActive] = useState("sales");
 
   useEffect(() => {
     const id = hash.replace("#", "");
@@ -140,7 +157,9 @@ export default function Reporting() {
             <p className="mt-2 text-sm leading-relaxed text-ink-700">{tab.blurb}</p>
           </div>
 
-          <Component />
+          <Suspense fallback={<DashboardFallback />}>
+            <Component />
+          </Suspense>
         </div>
       </Section>
     </>

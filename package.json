@@ -6,7 +6,7 @@
   "homepage": "https://pethupraveen.github.io/",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/spa-fallback.mjs",
+    "build": "vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
     "check": "node scripts/render-check.mjs"
   },
