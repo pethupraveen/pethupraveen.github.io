@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pethupraveen.github.io/sitemap.xml
