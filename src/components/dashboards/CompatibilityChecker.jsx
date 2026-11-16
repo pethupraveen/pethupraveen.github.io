@@ -51,7 +51,7 @@ export default function CompatibilityChecker() {
 
       <div className="grid gap-5 md:grid-cols-2">
         {results.map((m) => (
-          <Card key={m.model} className="transition-shadow hover:shadow-md">
+          <Card key={m.model} hover>
             <div className="flex items-start justify-between gap-3">
               <div>
                 <p className="text-base font-bold tracking-tight text-navy-900">

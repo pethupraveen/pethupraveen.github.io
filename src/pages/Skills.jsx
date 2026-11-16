@@ -41,7 +41,7 @@ export default function Skills() {
             return (
               <Card
                 key={group.name}
-                className="flex flex-col transition-shadow hover:shadow-md"
+                hover className="flex flex-col"
               >
                 <span className="grid h-11 w-11 place-items-center rounded-xl bg-navy-900 text-white">
                   <Icon size={20} aria-hidden="true" />

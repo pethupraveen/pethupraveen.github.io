@@ -7,7 +7,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-20 border-t border-navy-800 bg-navy-900 text-white">
+    <footer className="mt-24 bg-navy-900 text-white">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-3">
         <div>
           <p className="text-lg font-bold tracking-tight">{profile.name}</p>
@@ -19,7 +19,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-ink-300">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-300">
             Pages
           </p>
           <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
@@ -41,7 +41,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-ink-300">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-300">
             Contact
           </p>
           <ul className="mt-4 space-y-3 text-sm">
@@ -81,7 +81,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-navy-800">
-        <div className="mx-auto max-w-6xl px-4 py-6 text-xs leading-relaxed text-ink-500 sm:px-6">
+        <div className="mx-auto max-w-6xl px-4 py-7 text-xs leading-relaxed text-ink-300 sm:px-6">
           <p>© {year} {profile.name}. All rights reserved.</p>
           <p className="mt-2 max-w-3xl">
             Dashboards on this site use clearly labelled sample data created for

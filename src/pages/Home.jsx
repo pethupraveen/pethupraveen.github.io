@@ -140,7 +140,7 @@ export default function Home() {
 
           {/* Dashboard preview */}
           <div className="animate-fade-up rounded-2xl bg-white/[0.07] p-2 ring-1 ring-white/15 backdrop-blur">
-            <div className="rounded-xl bg-white p-5 shadow-2xl">
+            <div className="rounded-xl bg-white p-5 shadow-float">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-widest text-ink-500">
@@ -196,7 +196,7 @@ export default function Home() {
         />
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {marketplaces.map((m) => (
-            <Card key={m.name} className="transition-shadow hover:shadow-md">
+            <Card key={m.name} hover>
               <p className="text-lg font-bold tracking-tight text-navy-900">{m.name}</p>
               <p className="mt-2 text-sm leading-relaxed text-ink-700">{m.detail}</p>
             </Card>
@@ -214,7 +214,7 @@ export default function Home() {
           />
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {capabilities.map(({ icon: Icon, title, body }) => (
-              <Card key={title} className="transition-shadow hover:shadow-md">
+              <Card key={title} hover>
                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-50 text-brand-600">
                   <Icon size={19} aria-hidden="true" />
                 </span>
@@ -246,7 +246,7 @@ export default function Home() {
 
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {projects.slice(0, 3).map((p) => (
-            <Card key={p.id} className="flex flex-col transition-shadow hover:shadow-md">
+            <Card key={p.id} hover className="flex flex-col">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold tracking-widest text-ink-300">
                   {p.number}

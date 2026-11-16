@@ -2,7 +2,7 @@ import { Info } from "lucide-react";
 
 export function PageHeader({ eyebrow, title, intro }) {
   return (
-    <section className="relative overflow-hidden border-b border-navy-800 bg-navy-900 text-white">
+    <section className="relative overflow-hidden bg-navy-900 text-white">
       <div className="grid-backdrop absolute inset-0" aria-hidden="true" />
       <div
         className="absolute -right-24 -top-32 h-80 w-80 rounded-full bg-brand-600/20 blur-3xl"
@@ -10,26 +10,31 @@ export function PageHeader({ eyebrow, title, intro }) {
       />
       <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
         {eyebrow && (
-          <p className="animate-fade-in text-xs font-semibold uppercase tracking-[0.2em] text-brand-300">
+          <p className="eyebrow-rule animate-fade-in text-xs font-semibold uppercase tracking-[0.18em] text-brand-300">
             {eyebrow}
           </p>
         )}
-        <h1 className="mt-3 animate-fade-up text-3xl font-extrabold tracking-tight text-balance sm:text-4xl lg:text-5xl">
+        <h1 className="mt-4 animate-fade-up text-3xl font-extrabold leading-[1.1] tracking-tight text-balance sm:text-4xl lg:text-[2.875rem]">
           {title}
         </h1>
         {intro && (
-          <p className="mt-5 max-w-3xl animate-fade-up text-base leading-relaxed text-ink-300 sm:text-lg">
+          <p className="mt-5 max-w-2xl animate-fade-up text-base leading-[1.7] text-ink-300 sm:text-lg">
             {intro}
           </p>
         )}
       </div>
+      {/* Hairline that fades out, instead of a hard border against the page. */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+        aria-hidden="true"
+      />
     </section>
   );
 }
 
 export function Section({ children, className = "" }) {
   return (
-    <section className={`mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16 ${className}`}>
+    <section className={`mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 ${className}`}>
       {children}
     </section>
   );
@@ -38,26 +43,33 @@ export function Section({ children, className = "" }) {
 export function SectionTitle({ eyebrow, title, intro, align = "left" }) {
   const centered = align === "center";
   return (
-    <div className={centered ? "mx-auto max-w-2xl text-center" : "max-w-3xl"}>
+    <div className={centered ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
       {eyebrow && (
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-600">
+        <p className="eyebrow-rule text-xs font-semibold uppercase tracking-[0.18em] text-brand-600">
           {eyebrow}
         </p>
       )}
-      <h2 className="mt-2 text-2xl font-bold tracking-tight text-navy-900 text-balance sm:text-3xl">
+      <h2 className="mt-3 text-2xl font-bold leading-[1.18] tracking-tight text-navy-900 text-balance sm:text-[1.75rem]">
         {title}
       </h2>
       {intro && (
-        <p className="mt-3 text-base leading-relaxed text-ink-700">{intro}</p>
+        <p className="mt-4 text-base leading-[1.7] text-ink-700">{intro}</p>
       )}
     </div>
   );
 }
 
-export function Card({ children, className = "" }) {
+export function Card({ children, hover = false, className = "" }) {
   return (
     <div
-      className={`rounded-2xl border border-ink-100 bg-white p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)] ${className}`}
+      className={[
+        "rounded-2xl bg-white p-6 shadow-card ring-1 ring-ink-100",
+        hover &&
+          "transition duration-200 hover:-translate-y-0.5 hover:shadow-card-hover hover:ring-brand-100",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
     >
       {children}
     </div>
@@ -67,7 +79,7 @@ export function Card({ children, className = "" }) {
 export function SampleDataNotice({ children, className = "" }) {
   return (
     <p
-      className={`flex items-start gap-2 rounded-xl border border-brand-100 bg-brand-50 px-4 py-3 text-xs leading-relaxed text-brand-700 ${className}`}
+      className={`flex items-start gap-2.5 rounded-xl bg-brand-50 px-4 py-3 text-xs leading-relaxed text-brand-700 ring-1 ring-brand-100 ${className}`}
     >
       <Info size={15} className="mt-0.5 shrink-0" aria-hidden="true" />
       <span>{children}</span>
@@ -78,7 +90,7 @@ export function SampleDataNotice({ children, className = "" }) {
 export function SampleBadge({ className = "" }) {
   return (
     <span
-      className={`inline-flex items-center rounded-full bg-brand-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-brand-700 ring-1 ring-brand-100 ${className}`}
+      className={`inline-flex items-center rounded-full bg-brand-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-brand-700 ring-1 ring-brand-100 ${className}`}
     >
       Sample data
     </span>
@@ -87,14 +99,14 @@ export function SampleBadge({ className = "" }) {
 
 export function Stat({ label, value, sub }) {
   return (
-    <div className="rounded-2xl border border-ink-100 bg-white p-5">
-      <p className="text-xs font-semibold uppercase tracking-widest text-ink-500">
+    <div className="rounded-2xl bg-white p-5 shadow-card ring-1 ring-ink-100">
+      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-500">
         {label}
       </p>
-      <p className="mt-2 text-2xl font-extrabold tracking-tight text-navy-900 tabular-nums">
+      <p className="mt-2.5 text-[1.75rem] font-extrabold leading-none tracking-tight text-navy-900 tabular-nums">
         {value}
       </p>
-      {sub && <p className="mt-1 text-xs text-ink-500">{sub}</p>}
+      {sub && <p className="mt-2 text-xs leading-relaxed text-ink-500">{sub}</p>}
     </div>
   );
 }
@@ -111,7 +123,7 @@ const PILL_TONES = {
 export function Pill({ children, tone = "neutral", className = "" }) {
   return (
     <span
-      className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${PILL_TONES[tone]} ${className}`}
+      className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ring-1 ring-inset ${PILL_TONES[tone]} ${className}`}
     >
       {children}
     </span>

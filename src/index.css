@@ -4,26 +4,36 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;
 
-  --color-navy-950: #050d1f;
-  --color-navy-900: #0b1b3a;
-  --color-navy-800: #12294f;
-  --color-navy-700: #1b3a6b;
-  --color-navy-600: #26508d;
+  /* Ink navy: deeper and less saturated than stock blue-navy, so white type
+     on it reads as paper on ink rather than as a brand block. */
+  --color-navy-950: #050b18;
+  --color-navy-900: #0a1628;
+  --color-navy-800: #15253f;
+  --color-navy-700: #1e3457;
+  --color-navy-600: #2b4874;
 
-  --color-brand-700: #1d4ed8;
-  --color-brand-600: #2563eb;
-  --color-brand-500: #3b82f6;
-  --color-brand-400: #60a5fa;
-  --color-brand-300: #93c5fd;
-  --color-brand-100: #dbeafe;
-  --color-brand-50: #eff6ff;
+  --color-brand-700: #1a46c7;
+  --color-brand-600: #2158e0;
+  --color-brand-500: #4a86f7;
+  --color-brand-400: #6fa3fa;
+  --color-brand-300: #9cc3fd;
+  --color-brand-100: #d9e6fe;
+  --color-brand-50: #f0f5ff;
 
-  --color-ink-900: #0f172a;
-  --color-ink-700: #334155;
-  --color-ink-500: #64748b;
-  --color-ink-300: #cbd5e1;
-  --color-ink-100: #e2e8f0;
-  --color-ink-50: #f8fafc;
+  --color-ink-900: #0d1526;
+  --color-ink-700: #3a4659;
+  --color-ink-500: #6b7789;
+  --color-ink-300: #c3cbd6;
+  --color-ink-100: #e9edf2;
+  --color-ink-50: #f6f8fb;
+
+  /* One elevation scale for the whole site, instead of ad-hoc shadow-md /
+     shadow-float. Long, low-opacity spreads read as lift, not as a drop shadow. */
+  --shadow-card: 0 1px 2px rgba(13, 21, 38, 0.04), 0 1px 1px rgba(13, 21, 38, 0.03);
+  --shadow-card-hover: 0 12px 28px -14px rgba(13, 21, 38, 0.22),
+    0 3px 8px -3px rgba(13, 21, 38, 0.08);
+  --shadow-float: 0 28px 64px -28px rgba(5, 11, 24, 0.6),
+    0 6px 16px -8px rgba(5, 11, 24, 0.3);
 
   --animate-fade-up: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-fade-in: fade-in 0.5s ease-out both;
@@ -59,8 +69,20 @@
     background-color: #ffffff;
     color: var(--color-ink-900);
     font-family: var(--font-sans);
+    /* Inter sits loose at body size; a hair of negative tracking and the
+       contextual alternates (straight-tailed l, open g) tighten the text. */
+    letter-spacing: -0.006em;
+    font-feature-settings: "cv05" 1, "cv11" 1;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.022em;
+    text-wrap: balance;
   }
 
   :focus-visible {
@@ -78,13 +100,28 @@
 @layer utilities {
   .grid-backdrop {
     background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-    background-size: 56px 56px;
+      linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 48px 48px;
+    /* Fade the grid out rather than letting it run into the section edge. */
+    mask-image: radial-gradient(130% 100% at 50% 0%, #000 35%, transparent 100%);
   }
 
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Short accent rule used above section eyebrows. */
+  .eyebrow-rule::before {
+    content: "";
+    display: inline-block;
+    width: 1.25rem;
+    height: 2px;
+    margin-right: 0.625rem;
+    vertical-align: 0.2em;
+    border-radius: 2px;
+    background-color: currentColor;
+    opacity: 0.55;
   }
 }
 

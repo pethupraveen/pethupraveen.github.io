@@ -42,7 +42,7 @@ export default function Contact() {
       <Section>
         <div className="grid gap-5 md:grid-cols-3">
           {channels.map(({ icon: Icon, label, value, href, cta, external }) => (
-            <Card key={label} className="flex flex-col transition-shadow hover:shadow-md">
+            <Card key={label} hover className="flex flex-col">
               <span className="grid h-11 w-11 place-items-center rounded-xl bg-navy-900 text-white">
                 <Icon size={19} aria-hidden="true" />
               </span>
